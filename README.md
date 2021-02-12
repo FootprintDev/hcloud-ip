@@ -9,5 +9,5 @@ A CLI utility to assign a floating IP to the Server executing it.
 ## Usage:
 
 ```bash
-root@NGB-VoIP-0:~# ./hcloud-ip -ip VoIP -key [Cloud API Key]
+root@NGB-VoIP-0:~# ./hcloud-ip -ip [Floating IP Name] -key [Cloud API Key]
 ```
