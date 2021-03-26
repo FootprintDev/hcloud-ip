@@ -1,4 +1,4 @@
-module v2
+module hcloud-ip
 
 go 1.16
 
