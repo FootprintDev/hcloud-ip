@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/Showmax/go-fqdn"
 	"github.com/hetznercloud/hcloud-go/hcloud"
 )
 
@@ -14,6 +15,7 @@ func main() {
 
 	apiKey := flag.String("key", "HCloud API Key", "-key xaxaxaxax")
 	floatIP := flag.String("ip", "Name of Floating IP", "-ip voip")
+	useFqdn := flag.Bool("fqdn", false, "use FQDN instead of just the hostname when looking up servers")
 	flag.Parse()
 
 	// Check for API Key
@@ -26,11 +28,16 @@ func main() {
 	}
 
 	// Get System Hostname
-	name, err := os.Hostname()
+	var name string
+	var err error
+	if *useFqdn {
+		name, err = fqdn.FqdnHostname()
+	} else {
+		name, err = os.Hostname()
+	}
 	if err != nil {
 		panic(err)
 	}
-
 	// Initialize HCloud Client
 	client := hcloud.NewClient(hcloud.WithToken(*apiKey))
 
